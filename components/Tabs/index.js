@@ -19,3 +19,11 @@ const createTab = (topic) => {
 
   return topicDiv
 }
+
+const topic = getTopic().then(data => {
+  const {data: {topics: databaseTopics}} = data;
+  const topics = document.querySelector('.topics')
+
+  const elements = databaseTopics.map(topic => createTab(topic))
+  elements.forEach(element => topics.appendChild(element))
+})
