@@ -26,6 +26,15 @@ const createCard = (article) => {
   return document.createElement('div')
 }
 
+const createElementWithData = (propertyName, elementType, data) => {
+  const element = document.createElement(elementType)
+  element[propertyName] = data
+}
+
+const updateElementWithData = (element, propertyName, data) => {
+  element[propertyName] = data
+}
+
 const articles = getArticles().then(data => {
   /*
    * articles structure:
