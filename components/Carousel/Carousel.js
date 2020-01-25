@@ -23,3 +23,11 @@ const baseUrl = './assets/carousel/'
 const fileNames = ['mountains.jpeg', 'computer.jpeg', 'trees.jpeg', 'turntable.jpeg']
 
 const fullPathToImages = fileNames.map(filename => baseUrl.concat(filename));
+
+const createContainer = (className) => {
+  const containerElement = document.createElement('div')
+
+  containerElement.className = className;
+  
+  return containerElement
+}
