@@ -19,29 +19,69 @@
 // Create a card for each of the articles and add the card to the DOM.
 
 const getArticles = async () => {
-  return await axios.get('https://lambda-times-backend.herokuapp.com/articles');
-}
+  return await axios.get("https://lambda-times-backend.herokuapp.com/articles");
+};
 
 const createElementWithData = (propertyName, elementType, data) => {
-  const element = document.createElement(elementType)
-  element[propertyName] = data
-}
+  const element = document.createElement(elementType);
+  element[propertyName] = data;
+
+  return element;
+};
 
 const updateElementWithData = (element, propertyName, data) => {
-  element[propertyName] = data
-}
+  element[propertyName] = data;
+};
 
-const createCard = (article) => {
-  return document.createElement('div')
-}
+const createContainer = className => {
+  const element = document.createElement("div");
+  updateElementWithData(element, "className", className);
+  return element;
+};
+
+const createCard = ({ headline, authorPhoto, authorName }) => {
+  const cardContainer = createContainer("card");
+
+  const headlineDiv = createElementWithData("textContent", "div", headline);
+  updateElementWithData(headlineDiv, "className", "headline");
+
+  const authorContainer = createContainer("author");
+
+  const imgContainer = createContainer("img-container");
+  const img = createElementWithData("src", "img", authorPhoto);
+
+  const authorSpan = createElementWithData("textContent", "span", authorName);
+
+  //appends here
+  cardContainer.appendChild(headlineDiv);
+
+  cardContainer.appendChild(authorContainer);
+  authorContainer.appendChild(imgContainer);
+  imgContainer.appendChild(img);
+  authorContainer.appendChild(authorSpan);
+
+  return cardContainer;
+};
 
 const articles = getArticles().then(data => {
   /*
-   * articles structure:
+   * articles structure: object
+    - js
+    - bootstrap
+    - tech
+    - jq 
+    -node
+
+    article itself: 
    * headline, authorPhoto, authorName
    */
-  
-  const {data: {articles}}
 
-  const cardArticles = articles.map(article => createCard(article))
-})
+  const {
+    data: { articles }
+  } = data;
+  const cardsContainer = document.querySelector(".cards-container");
+
+  Object.entries(articles).map(([subject, articles]) =>
+    articles.forEach(article => cardsContainer.appendChild(createCard(article)))
+  );
+});
