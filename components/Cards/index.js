@@ -22,3 +22,8 @@ const getArticles = async () => {
   return await axios.get('https://lambda-times-backend.herokuapp.com/articles');
 }
 
+const createCard = () => {
+  return document.createElement('div')
+}
+
+
