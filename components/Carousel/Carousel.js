@@ -32,8 +32,9 @@ const createImages = () => {
 }
 
 const showImage = (index) => {
+  console.log(index)
   const carouselContainer =  document.querySelector('.carousel-container')
-  console.log(carouselContainer)
+  
   const images = carouselContainer.querySelectorAll('img');
   images.forEach(element => element.style.display = 'none');
   images[index].style.display = 'initial'
@@ -46,9 +47,9 @@ const createCarousel = () => {
 
   const carousel = createContainer('carousel');
   const leftButton = createElementWithData('textContent', 'div', '<')
-  updateElementWithData(leftButton, 'className', 'left-button');
+  updateElementWithData(leftButton, 'className', 'left-button control-button decrease');
   const rightButton = createElementWithData('textContent', 'div', '>')
-  updateElementWithData(rightButton, 'className', 'right-button');
+  updateElementWithData(rightButton, 'className', 'right-button control-button increase');
 
   const carouselIndex = Math.floor(Math.random() * images.length);
 
@@ -60,11 +61,35 @@ const createCarousel = () => {
 }
 
 const stretchScript = () => {
-  const [carousel, carouselIndex] = createCarousel()
+
+  const addEventListenersToCarouselControls = () => {
+    const imageLength = carouselContainer.querySelectorAll('img').length;
+
+    const buttons = carouselContainer.querySelectorAll('.control-button')
+    buttons.forEach(button => button.addEventListener('click', (event) => {
+      const action = event.target.classList[2]
+
+      switch (action) {
+        case 'increase':
+          carouselIndex = carouselIndex < imageLength - 1 ? carouselIndex + 1 : 0
+          break;
+        case 'decrease':
+          carouselIndex = carouselIndex > 0 ? carouselIndex - 1 : imageLength -1
+        default:
+          break;
+      }
+
+      showImage(carouselIndex);
+    }))
+  }
+
+  const [carousel, startingCarouselIndex] = createCarousel()
+  let carouselIndex = startingCarouselIndex;
 
   const carouselContainer = document.querySelector('.carousel-container')
   carouselContainer.appendChild(carousel);
 
+  addEventListenersToCarouselControls();
   showImage(carouselIndex);
 }
 
