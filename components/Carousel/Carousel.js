@@ -17,3 +17,9 @@
     <div class="right-button"> > </div>
   </div>
 */
+
+// this should be from where the js file is so path is technically ../../assets/carousel
+const baseUrl = './assets/carousel/'
+const fileNames = ['mountains.jpeg', 'computer.jpeg', 'trees.jpeg', 'turntable.jpeg']
+
+const fullPathToImages = fileNames.map(filename => baseUrl.concat(filename));
