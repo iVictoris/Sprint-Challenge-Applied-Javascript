@@ -22,10 +22,6 @@ const getArticles = async () => {
   return await axios.get('https://lambda-times-backend.herokuapp.com/articles');
 }
 
-const createCard = (article) => {
-  return document.createElement('div')
-}
-
 const createElementWithData = (propertyName, elementType, data) => {
   const element = document.createElement(elementType)
   element[propertyName] = data
@@ -33,6 +29,10 @@ const createElementWithData = (propertyName, elementType, data) => {
 
 const updateElementWithData = (element, propertyName, data) => {
   element[propertyName] = data
+}
+
+const createCard = (article) => {
+  return document.createElement('div')
 }
 
 const articles = getArticles().then(data => {
