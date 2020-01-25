@@ -31,7 +31,17 @@ const createImages = () => {
   return images
 }
 
+const showImage = (index) => {
+  const carouselContainer =  document.querySelector('.carousel-container')
+  console.log(carouselContainer)
+  const images = carouselContainer.querySelectorAll('img');
+  images.forEach(element => element.style.display = 'none');
+  images[index].style.display = 'initial'
+  
+}
+
 const createCarousel = () => {
+
   const images = createImages();
 
   const carousel = createContainer('carousel');
@@ -40,18 +50,22 @@ const createCarousel = () => {
   const rightButton = createElementWithData('textContent', 'div', '>')
   updateElementWithData(rightButton, 'className', 'right-button');
 
-  const carouselIndex = Math.floor(Math.random() * fullPathToImages.length);
+  const carouselIndex = Math.floor(Math.random() * images.length);
 
 
   carousel.appendChild(leftButton)
   images.forEach(img => carousel.appendChild(img))
   carousel.appendChild(rightButton)
+  return [carousel, carouselIndex]
 }
 
 const stretchScript = () => {
-  const carousel = createCarousel()
-  
+  const [carousel, carouselIndex] = createCarousel()
 
+  const carouselContainer = document.querySelector('.carousel-container')
+  carouselContainer.appendChild(carousel);
+
+  showImage(carouselIndex);
 }
 
 stretchScript();
