@@ -19,15 +19,39 @@
 */
 
 // this should be from where the js file is so path is technically ../../assets/carousel
-const baseUrl = './assets/carousel/'
-const fileNames = ['mountains.jpeg', 'computer.jpeg', 'trees.jpeg', 'turntable.jpeg']
 
-const fullPathToImages = fileNames.map(filename => baseUrl.concat(filename));
+// createContainer referenced in ../Cards/index.js
 
-const createContainer = (className) => {
-  const containerElement = document.createElement('div')
-
-  containerElement.className = className;
+const createImages = () => {
+  const baseUrl = './assets/carousel/'
+  const fileNames = ['mountains.jpeg', 'computer.jpeg', 'trees.jpeg', 'turntable.jpeg']
   
-  return containerElement
+  const images = fileNames.map(filename => createElementWithData('src', 'img', baseUrl.concat(filename)));
+  
+  return images
 }
+
+const createCarousel = () => {
+  const images = createImages();
+
+  const carousel = createContainer('carousel');
+  const leftButton = createElementWithData('textContent', 'div', '<')
+  updateElementWithData(leftButton, 'className', 'left-button');
+  const rightButton = createElementWithData('textContent', 'div', '>')
+  updateElementWithData(rightButton, 'className', 'right-button');
+
+  const carouselIndex = Math.floor(Math.random() * fullPathToImages.length);
+
+
+  carousel.appendChild(leftButton)
+  images.forEach(img => carousel.appendChild(img))
+  carousel.appendChild(rightButton)
+}
+
+const stretchScript = () => {
+  const carousel = createCarousel()
+  
+
+}
+
+stretchScript();
