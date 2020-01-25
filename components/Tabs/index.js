@@ -11,3 +11,11 @@
 const getTopic = async () => {
   return await axios.get('https://lambda-times-backend.herokuapp.com/topics');
 }
+
+const createTab = (topic) => {
+  const topicDiv = document.createElement('div')
+  topicDiv.classList.add('tab');
+  topicDiv.textContent = topic;
+
+  return topicDiv
+}
