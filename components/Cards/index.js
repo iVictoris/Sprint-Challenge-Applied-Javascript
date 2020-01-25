@@ -22,8 +22,17 @@ const getArticles = async () => {
   return await axios.get('https://lambda-times-backend.herokuapp.com/articles');
 }
 
-const createCard = () => {
+const createCard = (article) => {
   return document.createElement('div')
 }
 
+const articles = getArticles().then(data => {
+  /*
+   * articles structure:
+   * headline, authorPhoto, authorName
+   */
+  
+  const {data: {articles}}
 
+  const cardArticles = articles.map(article => createCard(article))
+})
